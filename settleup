@@ -1,0 +1,79 @@
+
+public class settle {
+	
+	static int maxindex=0;
+	static int minindex=0;
+	public static StringBuffer payy=new StringBuffer();
+	
+	public static int maximum(Double amt[])
+	{
+		Double t=amt[0];
+		for(int i=0;i<amt.length;i++)
+		{
+			if(amt[i]>=t)
+			{
+				t=amt[i];
+				maxindex=i;
+			}
+		}
+		return maxindex;
+	}
+	
+	public static int minimum(Double amt[])
+	{
+		Double t=amt[0];
+		for(int i=0;i<amt.length;i++)
+		{
+			if(amt[i]<=t)
+			{
+				t=amt[i];
+				minindex=i;
+			}
+		}
+		return minindex;
+	}
+	
+	public static void settleup(Double amt1[])
+	{
+		//System.out.println("Hello World");
+		int max=maximum(amt1);
+		int min=minimum(amt1);
+		
+		if(amt1[min]<=0.0 && amt1[max]==0.0)
+		{
+			return;
+		}
+			
+		else
+		{
+			if(amt1[max]>=(-1*amt1[min]))
+			{
+				
+				System.out.println("Person "+min+" has to pay "+(-1*amt1[min])+" to person "+max);
+				//payy.append("Person "+min+" has to pay "+(-1*amt1[min])+" to person "+max+"\n");
+				amt1[max]=amt1[max]+amt1[min];
+				amt1[min]=amt1[min]-amt1[min];
+			}
+			else if(amt1[max]<(-1*amt1[min]))
+			{
+				System.out.println("Person "+min+" has to pay "+(amt1[max])+" to person "+max);
+				//payy.append("Person "+min+" has to pay "+(amt1[max])+" to person "+max+"\n");
+				amt1[min]=amt1[min]+amt1[max];
+				amt1[max]=0.00;
+			}
+			settleup(amt1);
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		System.out.println("Hello World");
+		
+		Double amt[]= {943.2,-235.8,-235.8,-235.8,-235.8};
+		//float amt[]= {300.6,-200.3,-100.3};
+		System.out.println("Hello World");
+		settleup(amt);
+		//System.out.print(payy);
+	}
+
+}
